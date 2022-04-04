@@ -1,0 +1,164 @@
+---
+title: "PRESENTACIÓN DEL DIPLOMADO"
+subtitle: 'Diplomado en Análisis de datos con R para la Acuicultura.'
+author: Dr. José Gallardo Matus
+institute: Pontificia Universidad Católica de Valparaíso 
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  beamer_presentation:
+    theme: "Malmoe"
+    colortheme: "seahorse"
+    fonttheme: "professionalfonts"
+    includes:
+      in_header: mystyle.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# PLAN DE LA CLASE INAUGURAL
+
+- Palabras de bienvenida.
+
+- Revisión programa del curso.
+
+- Lectura condiciones AEA abierta.
+
+- Habilitación recursos de comunicación y aprendizaje.
+
+- Presentación de los participantes.
+
+# PALABRAS DE BIENVENIDA
+
+**Dr. José Gallardo**  
+Director del Diplomado.
+
+- **Programa consolidado**  
+1ra y 2da versión: 45 graduados.  
+3ra versión: 23 matriculados.  
+
+- **Excelencia académica**  
+Profesores con Doctorado.  
+Vinculación permanente con la industria.  
+Recursos de enseñanza y aprendizaje de nivel mundial.  
+
+# PALABRAS DE BIENVENIDA
+
+**Dr. Felipe Hurtado**  
+Jefe de Vinculación con el Medio.  
+Director del Doctorado en Acuicultura.
+
+- **Acreditación**  
+Doctorado en Acuicultura acreditado por 5 años: 92 graduados.  
+PUCV Acreditada por 7 años (todas las áreas).  
+
+- **Becas otorgadas para el diplomado v1-v3**   
+BECA YO SOY ACUICULTOR (30%): 61   
+BECA ALUMNI PUCV (40%): 5    
+BECA FUNCIONARIO PÚBLICO (50%): 8    
+BECA EXCELENCIA ACADÉMICA (90-100%): 6    
+
+# PROFESORES Y AYUDANTES DIPLOMADO
+
+**Dr. José Gallardo**  
+Profesor de genética y genómica aplicada  
+Doctor en Ciencias    
+Profesor adjunto PUCV  
+
+**Dr. María Angélica Rueda**  
+Profesora de modelamiento predictivo   
+Doctora en Ciencias Agropecuarias  
+Investigadora postdoctoral PUCV
+
+**Lic. Jaqueline Flores**  
+Coordinadora postulación y matrículas.
+
+**Ing. Carlos Gutierrez**  
+Ayudante del diplomado.
+
+# OBJETIVOS DEL DIPLOMADO
+
+Al finalizar el Diplomado los alumnos serán capaces de:
+
+1.	Realizar análisis exploratorio de datos, inferencia estadística y seleccionar y aplicar modelos lineales, no lineales o multivariados para el análisis de datos de acuicultura usando el lenguaje de programación R.
+
+2.	Compartir y presentar sus resultados de análisis de datos de manera moderna y profesional mediante reportes dinámicos generados con el software Rmarkdown.
+
+3.	Trabajar bajo el paradigma de la investigación reproducible utilizando de forma autónoma el software GitHub.
+
+
+# CONTENIDOS
+
+- **UNIDAD 1. Investigación reproducible y análisis exploratorio de datos.**  
+*Palabras clave: R, Rstudio, Rmarkdown, Github, variables aleatorias, distribución de probabilidad, análisis exploratorio de datos.*  
+
+
+- **UNIDAD 2. Pruebas de contraste de hipótesis paramétricas y no paramétricas.**  
+*Palabras clave: Parámetro, estadístico, correlación, permutación, combinación, inferencia estadística, contraste de hipótesis y análisis de sobrevivencia.*
+
+- **UNIDAD 3. Modelos lineales y análisis multivariante. **  
+*Palabras clave: Regresión lineal, regresión lineal múltiple, regresión logística, análisis de cluster, análisis de componentes principales.*
+
+
+# EVALUACIÓN DEL DIPLOMADO
+
+- La evaluación del diplomado consiste en el desarrollo de un proyecto personal de análisis de datos de acuicultura con R. 
+
+- Se dará énfasis a que los alumnos resuelvan un problema de acuicultura usando datos de su propio trabajo o investigación. 
+
+- El trabajo se desarrolla en dos etapas, la primera pondera un 40% y la segunda un 60% de la nota final.
+
+# CONDICIONES DE APROBACIÓN DEL DIPLOMADO
+
+- **Nota mínima**: 4,0 en escala de 1-7 con 60% de exigencia.
+
+- **Asistencia a clases sincrónicas**: 80%. Esto es independiente de que las calificaciones parciales o totales sean mayores de 4,0.
+
+- **Plazo de entrega de reportes**: No entregar los reportes en los plazos establecidos para ello será calificado con la nota mínima (1,0).
+
+# REQUISITOS
+
+- **Título**: Título profesional o licenciatura. 
+
+- **Programación básica con R**: Deseable pero no es excluyente.   
+Alumnos sin experiencia previa deben considerar 4 horas de estudio adicional por semana para alcanzar nivel avanzada de los objetivos de aprendizaje.  
+
+- **Inglés**: Los softwares R, Rstudio, Rmarkdown, GitHub y todas las librerías de análisis estadístico que se usarán en el curso solo están disponibles en inglés. Alumnos sin competencias de lectura en inglés no deberían tomar el curso.  
+
+# CONDICIONES DE OPERACIÓN
+
+- **Nombre de la actividad de extensión académica:**  
+DIPLOMADO EN ANÁLISIS DE DATOS CON R PARA LA ACUICULTURA.
+
+- **Resolución:**  
+14/2022.
+
+- **Fecha de ejecución:**  
+INICIO: 01/04/2022
+TÉRMINO: 30/06/2022  
+
+- **Consultas, sugerencias y reclamos del curso:**
+<acuicultura@pucv.cl>  
+<oct@pucv.cl>  
+
+# RECURSOS DE APRENDIZAJE Y COMUNICACIÓN
+
+- **Repositorio**: Todo el material disponible en Google Drive.
+
+- **Material docente**: Diapositivas de clases, videos, guías de aprendizaje y códigos de programación para el análisis de datos con R.
+
+- **SLACK**: Foro de comunicación y preguntas.
+
+- **R**: Acceso a versión open source en la nube.
+
+- **Rstudio**: Acceso a espacio de trabajo Rstudio.cloud por 4 meses.
+
+- **Github**: Acceso a versión gratuita.
+
+# PRESENTACIÓN DE LOS PARTICIPANTES
+
+```{r, echo=FALSE, out.width = '100%' }
+knitr::include_graphics("Welcome.png")
+```
+
