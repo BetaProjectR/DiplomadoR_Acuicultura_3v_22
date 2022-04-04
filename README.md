@@ -2,7 +2,15 @@
 
 **DIRIGIDO A:**
 
-Profesionales o graduados con nivel de licenciado o Magister relacionados con las Ciencias de la Acuicultura, incluyendo Acuicultores, Agropecuarios, Biólogos, Biólogos Marinos, Biotecnólogos, Ingenieros, Pesqueros, Veterinarios o Zootecnistas.
+Profesionales o graduados relacionados con la industria de la acuicultura.
+
+**Objetivos de aprendizaje:**
+
+Al finalizar el Diplomado los alumnos serán capaces de:  
+•	Realizar análisis exploratorio de datos, inferencia estadística y seleccionar y aplicar modelos lineales, no lineales o multivariados para el análisis de datos de acuicultura usando el lenguaje de programación R.  
+•	Compartir y presentar sus resultados de análisis de datos de manera moderna y profesional mediante reportes dinámicos generados con el software Rmarkdown.  
+•	Trabajar bajo el paradigma de la investigación reproducible utilizando de forma autónoma el software GitHub.
+
 
 **PROFESORES:**  
 
