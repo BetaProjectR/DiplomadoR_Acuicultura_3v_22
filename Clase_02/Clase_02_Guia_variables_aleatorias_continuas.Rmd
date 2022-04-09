@@ -1,0 +1,279 @@
+---
+title: "Clase 2 - Guía de trabajo Variables Aleatorias Continuas"
+subtitle: 'Diplomado en Análisis de datos con R para la Acuicultura.'
+author:
+ name: Dr. José A. Gallardo Matus y Dra. María Angélica Rueda
+ affiliation: Pontificia Universidad Católica de Valparaíso
+ email: <jose.gallardo@pucv.cl>
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    code_folding: hide
+  word_document: default
+  pdf_document: default
+---
+
+```{=html}
+<style>
+#TOC {
+  color: black;
+  font-familiy: Calibri;
+  font-size: 14px;
+  border-color: #708090; 
+}
+body {
+   color: black;
+   font-familiy: Calibri;
+}
+
+pre {
+  color: black;
+  background-color: #F8F8FF;
+}
+# header {
+  color: #800000;
+  font-familiy: Calibri;
+  background-color: #F5F5F5;
+  opacity: 0.8;
+  font-size: 16px;
+}
+</style>
+```
+### **Introducción**
+
+**¿Cuál es la diferencia entre variable y dato?**
+
+Las **variables** son las características que se pueden medir en un individuo o en un ambiente y los **datos** son los valores que puede tomar esa variable.
+
+**¿Qué es una variable aleatoria?**
+
+Es una variable cuyo valor se determina por el azar. Las variables aleatorias se representan por letras mayúsculas (**X**) y sus valores numéricos por letras minúsculas ($x_i$).
+
+### **Clasificación de variables cuantitativas**
+
+|   **Tipo de variable**   |  **Descripción** |
+|:---:|:-----:|
+| **Variables discretas:** | Una variable ***Y*** es **discreta** si puede tomar valores puntales, pueden tener un número finito o infinito de valores. |
+| **Variables continuas:** | Una variable ***Y*** es **continua** si puede tomar cualquier valor dentro de un intervalo del conjunto de los números reales. La probabilidad de que tome un valor cualquiera es 0 debido a que existe un número infinito de posibilidades en el intervalo. |
+
+### **Clasificación de variables cualitativas o categóricas**
+
+|   **Tipo de variable**   | **Descripción** |
+|:--:|:----:|
+| **Variables nominales:** | Sus valores representan categorías que no obedecen a una clasificación intrínseca. |
+| **Variables ordinales:** | Sus valores representan categorías con alguna clasificación intrínseca.|
+
+### **Distribución de una variable**
+
+***Distribución empírica (observación)***: Los datos de una muestra, obtenidos de forma aleatoria de una población, pueden ser usados para observar su comportamiento o distribución.
+
+***Distribución de probabilidad (predicción)***: Las variables aleatorias tienen diferentes distribuciones de probabilidad subyacentes, lo que nos permite predecir su comportamiento y realizar inferencia estadística.
+
+***Distribución normal***: Las variables cuantitativas continuas podrían seguir una distribución normal.
+
+### **¿Cómo puedo observar y predecir el comportamiento de una variable?**
+
+En la siguiente tabla se muestran varias **funciones clave** para poder observar o predecir el comportamiento de una variable aleatoria.
+
+| **Librería** |  **Función**  |                  **Descripción**                   |
+|:----------------------:|:----------------------:|:-----------------------:|
+|     base     |  **table()**  | Tabla de distribución de frecuencia para factores. |
+|     base     |  **plot()**   | Gráfico x-y de puntos "p", líneas "l" o ambas "b". |
+|   graphics   |  **hist()**   |      Histograma para variables cuantitativas       |
+|   graphics   | **boxplot()** |             Gráfico de cajas y bigotes             |
+|   graphics   | **barplot()** |                 Gráfico de barras                  |
+|    stats     | **density()** |            Función de densidad empírica            |
+|    stats     |  **ecdf()**   |     Función de distribución acumulada empírica     |
+
+### **¿Qué puedo medir de una variable aleatoria continua?**
+
+| **Librería** |  **Función**   |           **Descripción**           |
+|:------------:|:--------------:|:-----------------------------------:|
+|     base     |   **mean()**   |          Media aritmética           |
+|     base     |  **range()**   |                Rango                |
+|    stats     |  **median()**  |              Mediana               |
+|    stats     |   **var()**    |              Varianza               |
+|    stats     |    **sd()**    |         Desviación estándar         |
+|    stats     | **quantile()** | Concentración de datos en cuantiles |
+|    stats     |   **cor()**    |    Correlación con otra variable    |
+
+### **¿Cómo puedo simular números aleatorios con distribución normal?**
+
+| **Librería** | **Función**  |  **Descripción** |
+|:----:|:---:|:---:|
+| stats  | **rnorm(n, mean, sd)** | Genera (n) números aleatorios para la distribución normal con promedio (mean) y desviación estandar (sd) |
+
+
+### **Objetivos de aprendizaje**
+
+Los objetivos de aprendizaje de esta guía son:
+
+**1**. Observar y predecir una variable aleatoria continua con distribución normal.
+
+
+## **Ejercicios**
+
+### **Ejercicio 1.** **Elaborar un Script de R (Archivo .R)**
+
+Elabore un archivo o file con extensión **.R** usando la barra de herramientas de **Rstudio**. Selecciona **File \> New file \> R script**. Utilice el siguiente ejemplo para completar la información de **metadatos** del script.
+
+    # ----------------------------------------------------------  
+    # Clase 02 - Guia Variables Aleatorias continuas.   
+    # Su nombre: 
+    # 09 abril 2022. 
+    # Diplomado en Análisis de datos con R para la Acuicultura.. 
+    # ----------------------------------------------------------  
+
+Luego, guarde inmediatamente su script como **script_2_nombre_apellido.R**.
+
+### **Ejercicio 2.** **Configuración de librerías**
+
+Debajo del **metadatos** habilite el paquete **readxl** usando la función **library()**. Note que los paquetes **base**, **stats**, **utils** y **graphics** ya están habilitados.
+
+```{r setup, include=TRUE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readxl)
+```
+
+### **Ejercicio 3.** **Peso y talla de Salmones del Atlántico.** 
+
+El set de datos **datos.xlsx** contiene información de peso (**Peso**) y talla (**Talla**) de 100 salmones del Atlántico un estanque, los cuales se clasificaron según su sexo en **Hembra** o **Macho**.
+
+Cree un objeto llamado **salmones** e importe el set de datos **datos.xlsx** usando la función **read_excel** de la librería **readxl**.
+
+Explore el set de datos algunas funciones de la librería **{utils}** **head()**, **tail()**, **str()** y de la librería **{base}** **summary**. 
+
+```{r}
+salmones <- read_excel("datos.xlsx")
+head(salmones)
+tail(salmones)
+str(salmones)
+summary(salmones)
+```
+
+### **Ejercicio 4.** **Corrección de variables**
+
+Note que en el ejercicio anterior la variable **Sexo** fue codificada como caracter o texto (chr) en vez de factor. Use la función **as.factor(salmones$Sexo)** para indicar que Sexo es un factor de clasificación. Vuelva a ejecutar los comandos **summary()** y **str()** para comprobar que las variables están adecuadamente codificadas.
+
+```{r}
+salmones$Sexo <- as.factor(salmones$Sexo)
+summary(salmones)
+str(salmones)
+```
+
+### **Ejercicio 5.** **Observar el comportamiento de una variable**
+
+A partir del set de datos **salmones** elabore un histograma y un boxplot de la variable cuantitativa continua **Peso**. Use las funciones **hist()**, **boxplot()**. Incluya títulos y leyenda de los ejes con los argumentos *col=""*, *main = ""* y *xlab=""*.
+
+Investigue y use este comando **par(mfrow=c(1,2))** para unir las gráficas en un solo panel con dos columnas.
+
+¿Que representa el círculo que aparece en el Boxplot?.
+
+```{r}
+par(mfrow=c(1,2))
+
+hist(salmones$Peso, col="deepskyblue4", main = "Histograma Peso", xlab = "Peso (g)")
+
+boxplot(salmones$Peso, col="deepskyblue4", main = "Boxplot Peso", ylab = "Peso (g)")
+
+```
+
+### **Ejercicio 6.** **Métricas del set de datos salmones**
+
+Calcule las siguientes métricas del set de datos: promedio, desviación estándar, rango y cuantiles usando las funciones: **mean()**, **sd()**, **range()** y **quantile()**.
+
+```{r}
+mean(salmones$Peso)
+sd(salmones$Peso)
+range(salmones$Peso)
+quantile(salmones$Peso)
+```
+
+### **Ejercicio 7.** **Función de densidad**
+
+Usando la función **plot()** elabore:
+
+**a).** Gráfico con la densidad empírica. Debe incluir la función **density()** dentro de la función **plot()**.
+
+```{r}
+# Densidad empírica.
+plot(density(salmones$Peso), main="Densidad empírica", xlab="Peso (g)")
+```
+
+**b).** Gráfico con la distribución acumulada empírica. Debe incluir la función **ecdf()** dentro de la función **plot()**.
+
+```{r, echo=TRUE}
+# Distribución acumulada empírica.
+plot(ecdf(salmones$Peso), main="Distribución acumulada empírica", xlab="Peso (g)")
+```
+
+### **Ejercicio 8.** **Crear una función y predecir datos observados**
+
+Utilice la función de distribución acumulada empírica **ecdf()** para determinar que proporción de los animales es menor a 5000 g, y que proporción es mayor de 7000 g:
+
+**a).** Primero cree un un objeto llamado **Fn** con la función de distribución acumulada empírica para los datos del peso de sus animales.
+
+```{r, echo=TRUE}
+Fn <- ecdf(salmones$Peso)
+Fn
+```
+
+**b).** Calcule la proporción de animales menores de 5000 g. Use la función paste() para redactar su resultado de forma automática.
+
+```{r, echo=TRUE}
+# Fn(x) returns the percentiles for x
+paste("La proporción de animales menores a 5000 g es = ", Fn(5000)*100, "%") 
+```
+
+**c).** Calcule la proporción de animales mayor a 5000 g. Use la función paste() para redactar su resultado de forma automática.
+
+```{r}
+# 1- Fn(x) returns 1 - the percentiles for x
+paste("La proporción de animales mayores a 5000 g es = ", ((1 - Fn(5000))*100), "%")
+```
+
+### **Ejercicio 9.** **Proporción de datos entorno a la media**
+
+En la siguiente figura, la línea roja representa 1 desviación estándar sobre y debajo de la media, mientras que la línea azul representa la media.
+
+```{r, echo=FALSE}
+plot(density(salmones$Peso), main="Densidad empírica", xlab="Peso (g)")
+abline(v=6078 + 1190, col="red", lwd=2)
+abline(v=6078 - 1190, col="red", lwd=2)
+abline(v=6078, col="blue", lwd=2)
+```
+
+¿Qué proporción de los datos está contenido entre una desviación estándar hacia arriba y hacia abajo de la media?.
+
+**a).** Calcule la proporción de datos 1 desviación estándar sobre la media usando la función creada en el ejercicio 8.
+
+```{r, echo=TRUE}
+p1 <- 1 - Fn(6078 + 1190)
+p1
+```
+
+**b).** Calcule la proporción de datos 1 desviación estándar bajo la media usando la función creada en el ejercicio 8.
+
+```{r}
+p2 <- Fn(6078 - 1190)
+p2
+```
+
+**c).** Calcule la proporción de datos entre 1 desviación estándar arriba y abajo de la media multiplicado por 100. Use la función paste() para redactar su resultado de forma automática.
+
+```{r}
+paste(((1 - (p1 + p2))*100),"%")
+# Este valor es muy cercano al 70% teórico de una variable con distribución normal.
+```
+
+### **Ejercicio 10.** **Diferencias entre machos y hembras.**
+
+Finalmente, elabore un boxplot para comparar la diferencia de peso entre machos y hembras. Use la formula **boxplot(y ~ x)**, donde y es la variable **Peso** y x es la variable **Sexo**.
+
+```{r}
+boxplot(salmones$Peso ~ salmones$Sexo, col="light blue", main = "Peso: Machos v/s Hembras", ylab = "Peso (g)", xlab = "Sexo")
+```
+

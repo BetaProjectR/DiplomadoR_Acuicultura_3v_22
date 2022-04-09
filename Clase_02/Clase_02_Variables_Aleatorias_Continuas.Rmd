@@ -1,0 +1,197 @@
+---
+title: "CLASE 02 - VARIABLES ALEATORIAS CONTINUAS"
+subtitle: 'Diplomado en Análisis de datos con R para la Acuicultura.'
+author: Dra. Angélica Rueda Calderón
+institute: Pontificia Universidad Católica de Valparaíso 
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  beamer_presentation:
+    theme: "Malmoe"
+    colortheme: "seahorse"
+    fonttheme: "professionalfonts"
+    includes:
+      in_header: mystyle.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(MASS)
+library(psych)
+library(knitr)
+library(Rlab)
+library(ggplot2)
+library(readxl)
+```
+
+
+## **PLAN DE LA CLASE**
+
+1. **Introducción**
+
+- Diferencia entre variable, variable aleatoria, datos y factores.
+
+- Clasificación de variables aleatorias.
+
+- Observar y predecir variables cuantitativas continuas.
+
+- Formato correcto para importar datos a R.
+
+2. **Práctica con R y Rstudio cloud**
+
+- Elaborar un script de R e importar datos desde excel.
+
+- Observar y predecir variable aleatoria con distribución Normal.
+
+## **CONCEPTOS Y DEFINICIONES**
+
+1. **Variable**  
+Características que se pueden medir u observar en un individuo o en un ambiente: peso, temperatura, sexo, crecimiento, madurez, flotabilidad, rendimiento, sobrevivencia, biomasa cosechada.
+
+2. **Variable aleatoria**  
+Es un número que representa un resultado de un experimento aleatorio. Depende entonces de función matemática o distribución de probabilidad.
+
+
+## **CONCEPTOS Y DEFINICIONES**
+
+3. **Datos u observaciones**  
+Son los valores que puede tomar una variable aleatoria. 6078 gramos, 55 mm, células por mililitro, macho / hembra, 13ºC, Maduro /No maduro, Kg wfe/N, vivo/muerto.
+
+4. **Factor**  
+Usado para identificar tratamientos de un experimento o variables de clasificación. Se usan como *variables independientes o predictoras*, es decir, tienen un efecto sobre una *variable dependiente o respuesta*. Ej. Sexo (niveles: macho o hembra) tiene un efecto sobre nivel de hormonas.
+
+## **CLASIFICACIÓN DE VARIABLES**
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("TiposVariables.png")
+```
+
+## **VARIABLE ALEATORIA CUANTITATIVA CONTINUA**
+
+**Definición:** Puede tomar cualquier valor dentro de un intervalo (a,b), (a,Inf), (-Inf,b),(-Inf,Inf) y la probabilidad que toma cualquier punto es 0, debido a que existe un número infinito de posibilidades.
+
+* Peso del cuerpo (g).
+* Talla (cm).
+
+```{r, echo=FALSE, out.width = '50%', fig.align='center'}
+knitr::include_graphics("FxNormal.jpg")
+```
+
+## **OBSERVAR VARIABLE CONTINUA CON HISTROGRAMA**
+
+Al observar con un histograma **hist()** notamos que: 
+
+1. La frecuencia o probabilidad en un intervalo es distinta de cero.  
+2. Cuando aumenta el **n** muestral se perfila una distribución llamada **normal**.    
+
+```{r, echo=FALSE, out.width = '70%', fig.align='center'}
+par(mfrow=c(1,2))
+set.seed(123)
+q<-rnorm(50, 0, 1)
+hist(q, col="red", main = "Histograma n= 50", xlab = "Variable cuantitativa continua")
+q1<-rnorm(10000, 0, 1)
+hist(q1, col="red", main = "Histograma n= 10000", xlab = "Variable cuantitativa continua")
+```
+
+## **LA DISTRIBUCIÓN NORMAL**
+
+$X \sim \text{Normal}(\mu, \sigma)$
+
+```{r, echo=FALSE, out.width = '100%' }
+knitr::include_graphics("Normal.png")
+```
+
+## **OBSERVAR CON BOXPLOT**
+
+Las gráficas de cajas y bigotes son muy adecuadas para observar la distribución de las variables aleatorias continuas **boxplot()**.
+
+[^1]: **IQR =** **_Rango intercuantílico_** es la diferencia entre el tercer cuartil (75%) y el primer cuartil (25%) de una distribución.
+
+```{r, echo=FALSE, out.width = '80%', fig.align='center'}
+
+knitr::include_graphics("Boxplot.png")
+```
+
+## **PREDECIR VARIABLE CONTINUA (V.C.)**
+
+Podemos predecir la probabilidad de que la variable aleatoria tome un determinado valor usando la función de densidad empírica **density()**.
+
+```{r , echo=FALSE, out.width = '80%', fig.align='center'}
+q2<-rnorm(100000, 0, 1)
+plot(density(q2), main = "Función de densidad empírica")
+
+```
+
+## **PREDECIR TALLA DE SALMONES** 
+La distribución normal puede describir la distribución de las tallas de salmones a la cosecha. Por ejemplo, usted puede calcular la probabilidad de que un salmón mida entre 79 y 85 cm.
+
+$P\left(79\le X\le 85\right)$ = $29\%$
+
+```{r, echo=FALSE}
+proba <- round(pnorm(85,77,5)-pnorm(79,77,5),2)*100
+```
+
+```{r,echo=FALSE, out.width = '60%', fig.align='center'}
+regionX=seq(79,85,0.01)            # Intervalo a sombrear
+xP <- c(79,regionX,85)             # Base de los polígonos que crean el efecto "sombra"
+yP <- c(0,dnorm(regionX,77,5),0)   # Altura de los polígonos sombreados
+curve(dnorm(x,77,5),xlim=c(55,100),ylim=c(0,0.1), yaxs="i",ylab="f(x)",
+      main='Densidad N(77,5)') 
+polygon(xP,yP,col= "coral")
+box()
+
+```
+
+## **PREDECIR V.C.: DISTRIBUCIÓN ACUMULADA**
+
+Podemos predecir la probabilidad de que la variable aleatoria tome un valor menor o igual a un determinado valor, usando la función de distribución empírica acumulada **ecdf()**.
+
+```{r, echo=FALSE, out.width = '80%', fig.align='center'}
+ 
+plot(ecdf(q2),main= "Función de distribución empírica acumulada", col="red")
+```
+
+
+## **IDENTIFICA CORRECTAMENTE TU VARIABLE**
+
+* Es importante identificar la naturaleza que tiene nuestra variable en estudio, y así evitar errores en los análisis estadísticos que llevemos a cabo. 
+
+* Las variables cuantitativas continuas usualmente tienen una distribución normal.
+
+* Otras distribuciones asociadas a variables cuantitativas continuas son: t de Student, Exponencial, entre otras.
+
+## **FORMATO CORRECTO PARA IMPORTAR A R**
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center', fig.cap="Formato correcto de archivo excel para que sea importado a R"}
+knitr::include_graphics("Datos.png")
+```
+
+## **COMO IMPORTAR DATOS A R**
+
+Asuntos importantes:   
+
+1. Prefiera archivos sin formato como **txt, csv**. Si tiene un excel se recomienda transformarlo, particularmente cuando trabaje con miles de filas o columnas.
+
+2. El paquete **readxl** es muy util para importar datos a R. Pero debe tener cuidado con: separador de columnas, decimales y valores faltantes.
+
+```{r, echo=TRUE, out.width = '100%', fig.align='center'}
+library(readxl)
+salmon<-read_excel("datos.xlsx",
+                   sheet = 1, na = "NA")
+```
+
+## **PRÁCTICA VARIABLES ALETORIAS**
+
+**Guía de trabajo programación con R en Rstudio.cloud**.
+
+```{r, echo=FALSE, out.width = '80%' }
+knitr::include_graphics("Run.png")
+```
+
+## **RESUMEN DE LA CLASE**
+
+- Identificamos  y clasificamos variables.
+
+- Observamos la distribución de una variable cuantitativa continua usando histograma y boxplot.
+
+- Predecimos el comportamiento de una variable cuantitativa continua con distribución normal usando funciones de densidad y de distribución acumulada.
+
