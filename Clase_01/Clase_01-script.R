@@ -132,7 +132,7 @@ rm(list = ls())
 # Investiga el paquete **fishdata** y habilitelo con la función library().
 # Explora los datos de juvenile_metrics con summary().
 # Realiza un histograma de la variable standard_length y de la variable age con la función hist()
-# Realiza un grafico de dispersión con las variables age (eje x) y standard_length (eje y)
+# Realiza un gráfico de dispersión con las variables age (eje x) y standard_length (eje y)
 # Finalmente calcula la correlación entre ambas variables con la función cor().
 
 
