@@ -1,0 +1,205 @@
+---
+title: "CLASE 03 - VARIABLES DISCRETAS Y CUALITATIVAS"
+subtitle: 'Diplomado en Análisis de datos con R para la Acuicultura.'
+author: Dra. Angélica Rueda Calderón
+institute: Pontificia Universidad Católica de Valparaíso 
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  beamer_presentation:
+    theme: "Malmoe"
+    colortheme: "seahorse"
+    fonttheme: "professionalfonts"
+    includes:
+      in_header: mystyle.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(MASS)
+library(psych)
+library(knitr)
+library(Rlab)
+library(ggplot2)
+library(xlsx)
+library(readr)
+library(readxl)
+```
+
+
+## **PLAN DE LA CLASE**
+
+1. **Introducción**
+
+- Variables aleatorias discretas.
+
+- Observar y predecir variables cuantitativas discretas.
+
+- Variables cualitativas y como presentar su información en formato tabla.
+
+2. **Práctica con R y Rstudio cloud**
+
+- Observar y predecir variables aleatorias discretas con distribución Bernoulli o Binomial.
+
+## **CLASIFICACIÓN DE VARIABLES**
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("TiposVariables.png")
+```
+
+## **VARIABLES ALEATORIAS DISCRETAS**
+
+Las variables aleatorias discretas son aquellas que presentan un número contable de valores; por ejemplo:
+
+* **Fecundidad medida como número de huevos**: (1, 15, 26, 50, etc.).
+
+* **Estado de maduración**: No maduro: 0 , Maduro: 1.
+
+* **Número de parásitos** (1, 3, 5, 6, etc.).
+
+* **Número de días a la muerte durante desafío contra patógenos** (1, 2, 3,..., 40).
+
+* **Número de larvas**: (1, 15, 26, 50, etc.).
+
+## **IDENTIFICA CORRECTAMENTE TU VARIABLE**
+
+* Usualmente cuando las variables en estudio son conteos, binarias (éxito o fracaso, macho o hembra, sano o enfermo) deben ser consideradas como **variables aleatorias discretas**. 
+
+* Según sea la variable aleatoria discreta, ésta tendrá una función de distribución de probabilidad asociada que **NO** es normal. Por ejemplo: **Bernoulli, Binomial, Binomial Negativa, Poisson, entre otras**. 
+
+* En gran parte, la **_distribución de variables aleatorias discretas_** suelen ser **asimétricas a derecha o a izquierda**.
+
+* Las variables aleatorias que son expresadas como proporciones, podrían ser analizadas con la distribución binomial.
+
+## **VARIABLE DISCRETA: DISTRIBUCIÓN BERNOULLI**
+
+- La distribución de Bernoulli, describe un experimento aleatorio que sólo admite dos resultados excluyentes (éxito y fracaso). 
+
+- El éxito es usualmente el evento de interes, a aveces considerado como lo "malo": Muerte, enfermo, patógeno +.
+
+- La variable aleatoria discreta $X$ asociada a este experimento toma el valor 1 cuando ocurre el suceso éxito con probabilidad $P(X=1)=p$ y el valor 0 cuando ocurre el suceso fracaso con probabilidad $P(X=0)=1-p$.
+
+
+## **EJEMPLO VARIABLE DISCRETA: DISTRIBUCIÓN BERNOULLI**
+
+- Se saca un camarón al azar de una piscina, la probabilidad de que tenga síndrome de la mancha blanca es de 0.65. 
+- Sea X=1 si el camarón tiene síndrome de la mancha blanca y X=0 en el caso de que no tenga síndrome de la mancha blanca. 
+- ¿Cuál es la distribución de X?
+
+
+|             | Fracaso | Éxito |
+|-------------|---------|-------|            
+| x           | 0       | 1     |
+| f(x)=P(X=x) | 1-p     | p     |
+|             | 0.35    | 0.65  |
+
+
+## **VARIABLE DISCRETA: DISTRIBUCIÓN BINOMIAL**
+
+- Cuando se realizan $n$ pruebas de Bernoulli sucesivas e independientes, la variable aleatoria discreta $X$ se denomina variable binomial-
+
+- X = "número de veces que ocurre el suceso éxito en n pruebas".
+
+- Ejemplo: Número de camarones que sufren de síndrome de la mancha blanca.
+
+## **VARIABLE DISCRETA: DISTRIBUCIÓN BINOMIAL (FUNCIÓN DE PROBABILIDAD)**
+
+```{r,echo=FALSE, out.width = '80%', fig.align='center'}
+plot(dbinom(0:10,10,0.6),type="h",xlab="x",ylab="P(X=x)",main="Función de Probabilidad Binomial(10,0.6)",col= "deepskyblue4", xlim = c(0, 10))
+```
+
+## **VARIABLE DISCRETA: DISTRIBUCIÓN BINOMIAL (FUNCIÓN DE DISTRIBUCIÓN)**
+
+```{r,echo=FALSE, out.width = '80%', fig.align='center'}
+plot(stepfun(0:10,pbinom(0:11,10,0.6)),xlab="x",ylab="F(x)",main="Función de distribución Binomial(10,0.6)")
+```
+
+## **VARIABLE DISCRETA: COMPORTAMIENTO DE LA DISTRIBUCIÓN BINOMIAL (SIMETRÍA)**
+
+```{r,echo=FALSE, out.width = '80%', fig.align='center'}
+set.seed(1)
+x <- 0:12
+prob <- dbinom(x,12,0.5)
+barplot(prob,col = "coral",ylim = c(0,0.3),names.arg=x, main="Distribución Binomial")
+
+```
+
+
+## **VARIABLE DISCRETA: COMPORTAMIENTO DE LA DISTRIBUCIÓN BINOMIAL (ASIMETRÍA A DERECHA)**
+
+```{r,echo=FALSE, out.width = '80%', fig.align='center'}
+set.seed(1)
+x <- 0:12
+prob <- dbinom(x,12,0.2)
+barplot(prob,col = "darkolivegreen3",ylim = c(0,0.3),names.arg=x, main="Distribución Binomial")
+```
+
+
+## **VARIABLE DISCRETA: COMPORTAMIENTO DE LA DISTRIBUCIÓN BINOMIAL (ASIMETRÍA A IZQUIERDA)**
+
+```{r, echo=FALSE, out.width = '80%', fig.align='center'}
+set.seed(1)
+x <- 0:12
+prob <- dbinom(x,12,0.8)
+barplot(prob,col = "deepskyblue4",ylim = c(0,0.3),names.arg=x, main="Distribución Binomial")
+```
+
+
+## **EJEMPLO VARIABLE DISCRETA CON D. BINOMIAL NEGATIVA**
+
+```{r, echo=FALSE, out.width = '80%', fig.align='center', fig.cap="Número de parásitos por pez.", message=FALSE, warning=FALSE}
+set.seed(123)
+# n = 1000 peces
+# mu = 4 (Parásitos por pez)
+# theta = 30 (número arbitrario para estimar la varianza)
+Datos <- data.frame(rnegbin(500, 10, 5))
+colnames(Datos) <- "parasitos"
+ggplot(Datos, aes(parasitos))+
+ geom_bar(color="white", fill="blue")+
+  labs(x="Parásitos", y="Frecuencia")+
+  scale_x_discrete(limits=0:37, labels = 0:37)
+```
+
+## **VARIABLES CUALITATIVAS**
+
+* Color del salmón: Escala salmofan 20-34.
+
+* Nivel de cataratas: Alto, medio, bajo.
+
+* Infestación por caligus: Centro de Alta Diseminación (CAD) = o > 3 hembras Ovigeras; Centro normal < 3 hembras ovigeras.    
+
+* Sexo: Macho, hembra.
+
+* Estado de madurez: Maduro, Inmaduro.
+
+## **MOSTRAR INFORMACIÓN VARIABLES CATEGÓRICAS**
+
+Mediante tablas de contingencia, tablas de frecuencia o diagramas de barras.
+
+```{r}
+datos_all <- read_excel("datos_all.xlsx")
+datos_all$Sexo <- as.factor(datos_all$Sexo)
+datos_all$Nivel_cataratas <- as.factor(datos_all$Nivel_cataratas)
+```
+
+
+```{r, echo=TRUE}
+table(as.factor(datos_all$Sexo), as.factor(datos_all$Nivel_cataratas))
+```
+
+## **PRÁCTICA OTRAS VARIABLES ALETORIAS**
+
+**Guía de trabajo programación con R en Rstudio.cloud**.
+
+```{r, echo=FALSE, out.width = '80%' }
+knitr::include_graphics("Run.png")
+```
+
+## **RESUMEN DE LA CLASE**
+
+- Identificamos  y clasificamos variables.
+
+- Reconocemos variables aleatorias discretas y cualitativas.
+
+- Simulamos y observamos distribuciones variables con probabilidad diferente de normal:  Bernoulli, Binomial, Binomial negativa.
+
+
