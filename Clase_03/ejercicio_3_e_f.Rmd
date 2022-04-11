@@ -1,0 +1,64 @@
+---
+title: "Formas de solucionar el ejercicio 3 ítems e y f"
+output: html_document
+date: '2022-04-11'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# **DISTRIBUCIÓN DE PROBABILIDAD BINOMIAL**
+
+$f(y) = P(Y = y) = \binom{n}{y} p^y(1-p)^{n-y}$  para $y=0,1,2,...,n$
+
+## Ejercicio 3-e)
+
+**_Usando la fórmula de distribución de probabilidad binomial_**
+
+$P(Y=0) = \binom{3}{0} (0.25)^0 (0.75)^{3-0}$
+
+$P(Y=0) = (1) (0.25)^0 (0.75)^{3}$ = $(0.75)^{3}$ =$0.4219$ = $42.19\%$
+
+**Otra forma de solucionar lo mismo**
+
+```{r, echo=TRUE}
+p <- 0.25
+P_ND <- choose(3,0)*p^0*(1-p)^(3-0)
+paste("La probabilidad de que no encuentren productos defectuosos es = ", round(P_ND,4)*100, "%")
+
+```
+```{r, echo=TRUE}
+P_ND_1 <- dbinom(0,3,0.25)
+paste("La probabilidad de que no encuentren productos defectuosos es = ", round(P_ND_1,4)*100, "%")
+
+```
+La otra solución es viendo la tabla, al ser eventos independientes la probabilidad de que el comprador no detecte productos defectuosos, es el producto de las probabilidades cuando la variable y=0, es decir, 
+
+$P(Y=0)= P(ND)*P(ND)*P(ND)= (0.75)*(0.75)*(0.75)=(0.75)^3= 0.4219 = 42.19\%$
+
+## Ejercicio 3-f)
+
+**_Usando la fórmula de distribución de probabilidad binomial_**
+
+$P(Y=3) = \binom{3}{3} (0.25)^3 (0.75)^{3-3}$
+
+$P(Y=3) = (1) (0.25)^3 (0.75)^{0}$ = $(0.25)^{3}$ =$0.0156$ = $1.56\%$
+
+**Otra forma de solucionar lo mismo**
+
+```{r, echo=TRUE}
+p <- 0.25
+P_PD <- choose(3,3)*p^3*(1-p)^(3-3)
+paste("La probabilidad de que todos los productos de la muestra sean defectuosos es = ", round(P_PD,4)*100, "%")
+
+```
+```{r, echo=TRUE}
+P_PD_1 <- dbinom(3,3,0.25)
+paste("La probabilidad de que todos los productos de la muestra sean defectuosos es = ", round(P_PD_1,4)*100, "%")
+
+```
+La otra solución es viendo la tabla, al ser eventos independientes la probabilidad de que el comprador detecte todos los productos como defectuosos, es el producto de las probabilidades cuando la variable y=3, es decir, 
+
+$P(Y=3)= P(D)*P(D)*P(D)= (0.25)*(0.25)*(0.25)=(0.25)^3= 0.0156 = 1.56\%$
