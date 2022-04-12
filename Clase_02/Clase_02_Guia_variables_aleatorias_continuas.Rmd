@@ -147,7 +147,7 @@ Cree un objeto llamado **salmones** e importe el set de datos **datos.xlsx** usa
 Explore el set de datos algunas funciones de la librería **{utils}** **head()**, **tail()**, **str()** y de la librería **{base}** **summary**. 
 
 ```{r}
-salmones <- read_excel("datos.xlsx")
+salmones <- read_excel("/cloud/project/Clase_02/datos.xlsx")
 head(salmones)
 tail(salmones)
 str(salmones)
@@ -230,7 +230,7 @@ paste("La proporción de animales menores a 5000 g es = ", Fn(5000)*100, "%")
 
 **c).** Calcule la proporción de animales mayor a 5000 g. Use la función paste() para redactar su resultado de forma automática.
 
-```{r}
+```{r, echo=TRUE}
 # 1- Fn(x) returns 1 - the percentiles for x
 paste("La proporción de animales mayores a 5000 g es = ", ((1 - Fn(5000))*100), "%")
 ```
@@ -239,11 +239,11 @@ paste("La proporción de animales mayores a 5000 g es = ", ((1 - Fn(5000))*100),
 
 En la siguiente figura, la línea roja representa 1 desviación estándar sobre y debajo de la media, mientras que la línea azul representa la media.
 
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 plot(density(salmones$Peso), main="Densidad empírica", xlab="Peso (g)")
-abline(v=6078 + 1190, col="red", lwd=2)
-abline(v=6078 - 1190, col="red", lwd=2)
-abline(v=6078, col="blue", lwd=2)
+abline(v=5864 + 1171, col="red", lwd=2)
+abline(v=5864 - 1171, col="red", lwd=2)
+abline(v=5864, col="blue", lwd=2)
 ```
 
 ¿Qué proporción de los datos está contenido entre una desviación estándar hacia arriba y hacia abajo de la media?.
@@ -251,22 +251,22 @@ abline(v=6078, col="blue", lwd=2)
 **a).** Calcule la proporción de datos 1 desviación estándar sobre la media usando la función creada en el ejercicio 8.
 
 ```{r, echo=TRUE}
-p1 <- 1 - Fn(6078 + 1190)
+p1 <- 1 - Fn(5864 + 1171)
 p1
 ```
 
 **b).** Calcule la proporción de datos 1 desviación estándar bajo la media usando la función creada en el ejercicio 8.
 
-```{r}
-p2 <- Fn(6078 - 1190)
+```{r, echo=TRUE}
+p2 <- Fn(5864 - 1171)
 p2
 ```
 
 **c).** Calcule la proporción de datos entre 1 desviación estándar arriba y abajo de la media multiplicado por 100. Use la función paste() para redactar su resultado de forma automática.
 
-```{r}
-paste(((1 - (p1 + p2))*100),"%")
-# Este valor es muy cercano al 70% teórico de una variable con distribución normal.
+```{r, echo=TRUE}
+paste(((1 - (p1 + p2))*100), "%")
+# Este valor es muy cercano al 71% teórico de una variable con distribución normal.
 ```
 
 ### **Ejercicio 10.** **Diferencias entre machos y hembras.**
