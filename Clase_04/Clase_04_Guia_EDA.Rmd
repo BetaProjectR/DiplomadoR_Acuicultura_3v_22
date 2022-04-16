@@ -151,7 +151,7 @@ table(datos$genotype)
 
 **c)** A partir de su set de datos elabore una gráfica para la variable continua **weight**. Use el comando **ggplot()**, el argumento **aes()** para seleccionar los datos, y la variable respuesta **weight**. Con el simbolo **+** agregue el comando **geom_histogram()** para obtener un histograma.
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, fig.cap="Figura 1. Primera y segunda capa de un histograma con ggplot."}
 ggplot(datos, aes(x = weight)) +
   geom_histogram()
 ```
@@ -160,14 +160,14 @@ ggplot(datos, aes(x = weight)) +
 **d)** Para distinguir los diferentes niveles del factor **genotype**
 en el histograma, incluya dentro del comando **geom_histogram()** el argumento **aes(color = genotype)**.
 
-```{r}
+```{r, fig.cap="Figura 2. Agrega argumento aes(color = genotype al comando geom_histrogram."}
 ggplot(datos, aes(x = weight)) +
   geom_histogram(aes(color = genotype))
 ```
 
 **e)** Con el objetivo de visualizar de mejor forma los datos incluya dentro del comando **ggplot** y "después de una ," la siguiente línea de código **position = "identity", bins = 20, alpha = 0.4** . Modifique los valores de **bins** y **alpha** por otros números y observe como cambia la estética del gráfico. Seleccione un valor que permita una buena visualización de la distribución de cada nivel dentro de genotype.
 
-```{r}
+```{r, fig.cap="Figura 3. Agrega argumento bins (contenedores) al comando geom_histrogram."}
 ggplot(datos, aes(x = weight)) +
   geom_histogram(aes(color = genotype), 
   position = "identity", bins = 20, alpha = 0.4)
@@ -175,7 +175,7 @@ ggplot(datos, aes(x = weight)) +
 
 **f)** Grafique la distribución acumulada empírica de la variable **weight** usando el comando **plot(ecdf())** y compare con el histograma anterior. ¿Es posible deducir a partir de la densidad empírica la distribución de frecuencia de los datos?  
 
-```{r}
+```{r, fig.cap="Figura 4. Distribución empírica acumulada de la variable weight."}
 # Distribución acumulada empírica.
 plot(ecdf(datos$weight), main="Distribución acumulada empírica", xlab="weight")
 ```
@@ -184,21 +184,21 @@ plot(ecdf(datos$weight), main="Distribución acumulada empírica", xlab="weight"
 
 **a)** A partir del set de datos anterior elabore una gráfica de cajas y bigotes para la variable **weight**. Use el comando **ggplot()** y el argumento **aes(x,y)** para seleccionar los datos, donde x será la variable de clasificación **genotype** e y será la variable respuesta **weight**. Con el simbolo **+** agregue el comando **geom_boxplot()** para obtener un boxplot.
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, fig.cap="Figura 5. Primera y segunda capa de gráfica de boxplot."}
 ggplot(datos, aes(x=genotype, y=weight)) +
     geom_boxplot()
 ```
 
 **b)** Para distinguir de mejor forma los diferentes niveles del factor **genotype** en el boxplot incluya dentro del argumento **aes()** el siguiente parámetro **fill = genotype**.
 
-```{r}
+```{r, fig.cap="Figura 6. Primera y segunda capa de gráfica de boxplot con argumento fill=genotype"}
 ggplot(datos, aes(x=genotype, y=weight, fill=genotype)) +
     geom_boxplot()
 ```
 
 **c)** Use el comando **labs()** para incluir la etiqueta del eje y "Peso de cosecha (g)" 
 
-```{r}
+```{r, fig.cap="Figura 7. Agrega etiquetas al boxplot."}
 ggplot(datos, aes(x=genotype, y=weight, fill=genotype)) +
     geom_boxplot()+
   labs(y="weight")
@@ -206,7 +206,7 @@ ggplot(datos, aes(x=genotype, y=weight, fill=genotype)) +
 
 **d)** agregue a al código anterior el comando **geom_jitter()** para visualizar todos los datos de "weight"
 
-```{r}
+```{r, fig.cap="Figura 8. Agreta nueva capa al boxplot con el comando geom_jitter."}
 ggplot(datos, aes(x=genotype, y=weight, fill=genotype)) +
     geom_boxplot()+
   labs(y="weight")+
@@ -237,7 +237,7 @@ table(tilapia$feed, tilapia$sex)
 
 ¿Cuál de los dos factores tiene mayor influencia en la variable respuesta?
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, fig.cap="Figura 9. Grafica de boxplot con interacción de dos factores."}
 ggplot(tilapia, aes(x=feed, y=weight, fill=sex)) +
     geom_boxplot()+
   labs(y="weight")
@@ -249,7 +249,7 @@ Para el promedio (mean), la forma correcta de escribir el modelo de interacción
 
 **interaction.plot(Factor A, Factor B, Variable Respuesta, fun=c(mean))**
 
-```{r}
+```{r, fig.cap="Figura 10. Gráfica interaction.plot del paquete psyc."}
 interaction.plot(tilapia$feed, tilapia$sex, tilapia$weight, fun = mean)
 ```
 
@@ -257,7 +257,7 @@ interaction.plot(tilapia$feed, tilapia$sex, tilapia$weight, fun = mean)
 
 Responda: ¿Existe interación entre los factores sex y feed?
 
-```{r}
+```{r, fig.cap="Figura 11. Gráfica interaction.plot del paquete psyc con nuevas etiquetas y símbolos."}
 interaction.plot(tilapia$feed, tilapia$sex, tilapia$weight, fun = mean, xlab = "", ylab = "Peso promedio (g)", col=1:2, trace.label="Sexo", pch = c(15, 16), type = "b")
 
 ```
@@ -274,14 +274,14 @@ Incluya etiquetas en el eje x e y, de un color a su gráfica con el comando **co
 
 Responda: ¿Qué factor tiene una mayor influencia en la variable respuesta weight?
 
-```{r}
+```{r, fig.cap="Figura 12. Gráfica de tamaño de los efectos."}
 plot.design(tilapia$weight ~ tilapia$sex + tilapia$feed, xlab = "Factores", ylab="Weight", col="blue")
 
 ```
 
 ### **Ejercicio 7.** Explorar y visualizar covariación de variables continuas y discretas.
 
-El archivo **"Reproductive_traits.xlsx"** contiene información reproductiva del salmón Japones (*Oncorhynchus keta*) colectada desde un programa de suplementación en Piscicultura por [Hasegawa, K., Okamoto, Y., & Morita, K. (2021)](https://besjournals.onlinelibrary.wiley.com/doi/10.1002/2688-8319.12107)). Con este set de datos realice las siguientes actividades.
+El archivo **"Reproductive_traits.xlsx"** contiene información reproductiva del salmón Japones (*Oncorhynchus keta*) colectada desde un programa de suplementación en Piscicultura por [Hasegawa, K., Okamoto, Y., & Morita, K. (2021)](https://besjournals.onlinelibrary.wiley.com/doi/10.1002/2688-8319.12107). Con este set de datos realice las siguientes actividades.
 
 **a)** Cree un objeto llamado **repro** e importe el set de datos **Reproductive_traits.xslx** usando la función **read_csv()** del paquete **readxl**. Explore el set de datos completo con la función **summary()**. Transforme a factor las variables *sampling year*  y *sampling river*.
 
@@ -296,7 +296,7 @@ summary(repro)
 
 Responda: ¿Por qué no es adecuado incluir en este análisis de correlación las variables **sampling year** y **sampling river**?
 
-```{r, echo=TRUE, fig.cap="Correlación entre las primeras 7 variables"}
+```{r, echo=TRUE, fig.cap="Figura 13. Gráfica de correlación con algunas variables que no son cuantitativas."}
 # Gráfica de correlación de variables continuas
 pairs.panels(repro[,1:7], method = "pearson", hist.col = "red",  density = TRUE, font=2)
 ```
@@ -307,7 +307,7 @@ pairs.panels(repro[,1:7], method = "pearson", hist.col = "red",  density = TRUE,
 - ¿Qué variables son cuantitativas discretas?
 - Investigue y responda si es adecuado calcular la correlación de pearson para variables discretas. 
 
-```{r}
+```{r, fig.cap="Figura 14. Gráfica de correlación con variables cuantitativas continuas y discretas."}
 # Gráfica de correlación de variables continuas
 pairs.panels(repro[,3:7], method = "pearson", hist.col = "red",  density = TRUE, font=2)
 ```
