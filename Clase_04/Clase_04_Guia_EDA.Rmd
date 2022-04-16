@@ -165,7 +165,7 @@ ggplot(datos, aes(x = weight)) +
   geom_histogram(aes(color = genotype))
 ```
 
-**e)** Con el objetivo de visualizar de mejor forma los datos incluya dentro del comando **ggplot** y "después de una ," la siguiente línea de código **position = "identity", bins = 20, alpha = 0.4** . Modifique los valores de **bins** y **alpha** por otros números y observe como cambia la estética del gráfico. Seleccione un valor que permita una buena visualización de la distribución de cada nivel dentro de genotype.
+**e)** Con el objetivo de visualizar de mejor forma los datos incluya dentro del comando **geom_histogram()** y "después de una ," la siguiente línea de código **position = "identity", bins = 20, alpha = 0.4** . Modifique los valores de **bins** y **alpha** por otros números y observe como cambia la estética del gráfico. Seleccione un valor que permita una buena visualización de la distribución de cada nivel dentro de genotype.
 
 ```{r, fig.cap="Figura 3. Agrega argumento bins (contenedores) al comando geom_histrogram."}
 ggplot(datos, aes(x = weight)) +
