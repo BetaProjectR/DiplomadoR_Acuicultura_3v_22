@@ -16,7 +16,7 @@ library(tidyr) # Para manipular datos
 
 # EJERCICIO 1
 # a) Importe la hoja 1 del set de datos Parasitos a R.
-# b) Filtre la comulma "Variable" por el factor "parasitos" y ordene los datos a formato TIDY.
+# b) Filtre la columna "Variable" por el factor "parasitos" y ordene los datos a formato TIDY.
 # c) Agregue una columna indice llamada peces con valores 1-9 con el comando mutate(). 
 
 Parasitos <-read_excel("Parasitos.xlsx",na="NA")
