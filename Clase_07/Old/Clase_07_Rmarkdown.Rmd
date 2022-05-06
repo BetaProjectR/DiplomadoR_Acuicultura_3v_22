@@ -1,0 +1,118 @@
+---
+title: "Clase 07 - Reportes dinámicos con Rmarkdown."
+subtitle: 'DBT 845 - Investigación reproducible y análisis de datos biotecnológicos con R.'
+author: Dr. José Gallardo Matus 
+institution: Pontificia Universidad Católica de Valparaíso
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  beamer_presentation:
+    theme: "Malmoe"
+    colortheme: "beaver"
+    fonttheme: "structurebold"
+    includes:
+            in_header: mystyle.tex
+---
+
+```{r setup, include=FALSE, comment=TRUE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## **PLAN DE CLASE**
+
+**1).** **Introducción**
+
+- Paradigmas para editar reportes: WYSIWYG v/s WYSIWYM
+
+- ¿Qué es markdown?
+
+- ¿Qué es Rmarkdown?
+
+- ¿Cómo funciona Rmarkdown?
+
+
+**2).** **Práctica con R y Rstudio cloud**
+
+- Escribir un código de programación usando sintaxis de Rmarkdown.
+
+- Elaborar reporte html con Rmarkdown.
+
+
+## FORMAS DE CREAR REPORTES: WYSIWYG
+
+- **What You See Is What You Get**  
+Word, Power Point, pdf, otros.
+
+```{r, echo=FALSE, out.width = '80%', fig.align='center'}
+knitr::include_graphics("WYSIWYG.png")
+```
+
+[@2022. The Free On-line Dictionary of Computing](https://encyclopedia2.thefreedictionary.com/What-you-see-is-what-you-get)
+
+## FORMAS DE CREAR REPORTES: WYSIWYM
+
+- **What You See Is What You Mean (WYSIWYM)**.  
+HTML, Latex, Markdown, Rmarkdown.
+
+```{r, echo=FALSE, out.width = '80%', fig.align='center'}
+knitr::include_graphics("HTML_Example_Code_new.png")
+```
+
+## **¿QUÉ ES MARKDOWN?**
+
+- Markdown es un lenguaje de marcado ligero creado por **John Gruber** que trata de conseguir la máxima legibilidad y facilidad de publicación tanto en su forma de entrada como de salida.
+
+```{r, echo=FALSE, out.width = '50%', fig.align='center'}
+knitr::include_graphics("Markdown.png")
+```
+
+## **¿QUÉ ES R MARKDOWN?**
+
+- Rmarkdown es un procesador de texto que permite la creación de reportes de alta calidad integrando texto ligero con códigos de R. 
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("Rmarkdown.png")
+```
+
+## **VENTAJAS DE USAR RMARKDOWN?**
+
+- Es un software libre y de código abierto, por lo que podemos usarlo sin necesidad de comprar una licencia.
+
+- Permite trabajar bajo el paradigma de la investigación reproducible (texto sin formato).
+
+- Permite crear reportes, documentos, presentaciones y libros de alta calidad (plantillas disponibles).
+
+- Uno de los mejores sistemas para crear reportes colaborativos y mejorar el rendimiento del trabajo de los analistas de datos. 
+
+## **¿CÓMO FUNCIONA R MARKDOWN? 1 **
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("Rmarkdown1.png")
+```
+
+
+## **¿CÓMO FUNCIONA R MARKDOWN? 2**
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("Rmarkdown2.png")
+```
+
+
+## **PRÁCTICA CON RMARKDOWN**
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("Reportes.png")
+``` 
+
+
+##  **RESUMEN DE LA CLASE**
+
+- Paradigmas: WYSIWYG v/s WYSIWYM.
+
+- Que es Rmarkdown y como funciona.
+
+- Ventajas de elaborar reportes dinámicos con Rmarkdown.
+
+- Escribir códigos de programación usando sintaxis de Rmarkdown.
+
+- Elaborar diferentes reporte dinámico en formato html.
+

@@ -1,0 +1,48 @@
+---
+title: "Ejemplo Rmarkdown"
+author: "Su Nombre"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T)
+library(stats)
+library(ggplot2)
+```
+
+```{r}
+help(BOD)
+```
+
+# Introduccion al set de datos BOD
+
+BOD es un set de datos (dataset) que contiene un marco (data frame) de 2 columnas y 6 filas con datos referentes a calidad de agua representada por la demanda bioquímica de oxígeno en relación al tiempo de la siguiente manera:
+
+
+| Time | demand |
+| :-- | --: |
+|1  | 8.3 |         
+|2  | 10.3 |            
+|3  | 19.0  |       
+|4  | 16.0  |       
+|5  | 15.6  |       
+|7  | 19.8  |
+
+```{r}
+knitr::kable(BOD,caption="**Tabla 1.**Demanda bioquímica de oxígeno")
+
+```
+
+```{r , fig.cap="**Figura 1.**Demanda bioquímica de oxígeno"}
+
+plot(BOD,col="red",bg=4,pch=22,cex=2,ylab="Demand (mg/L)",xlab="Time (days)")
+
+```
+
+
+
+
+

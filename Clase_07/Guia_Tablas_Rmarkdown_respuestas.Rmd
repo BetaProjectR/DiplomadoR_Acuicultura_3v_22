@@ -1,0 +1,113 @@
+---
+title: "Guía para hacer tablas con Rmarkdown"
+subtitle: 'Diplomado en Análisis de datos con R para la Acuicultura'
+author:
+ name: Dr. José A. Gallardo y Dra. María Angélica Rueda.
+ affiliation: Pontificia Universidad Católica de Valparaíso
+ email: <jose.gallardo@pucv.cl>
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    code_folding: hide
+  word_document: default
+  pdf_document: default
+---
+
+<style>
+#TOC {
+  color: black;
+  font-familiy: Calibri;
+  font-size: 14px;
+  border-color: #708090; 
+}
+body {
+   color: black;
+   font-familiy: Calibri;
+}
+
+pre {
+  color: black;
+  background-color: #F8F8FF;
+}
+# header {
+  color: #800000;
+  font-familiy: Calibri;
+  background-color: #F5F5F5;
+  opacity: 0.8;
+  font-size: 16px;
+}
+</style>
+
+
+### **Objetivos de aprendizaje**
+
+Los objetivos de aprendizaje de esta guía son:
+
+**1**. Iniciar un proyecto de análisis de datos y escribir un código de programación o **_script_** con **[Rmarkdown](https://rmarkdown.rstudio.com/)**.
+
+**2**. Elaborar reportes dinámicos con **Rmarkdown**.
+
+## **Ejercicios**
+
+## **Ejercicio 1.** **Cree su propio reporte de análisis de datos con Rmarkdown**
+
+Ahora, cree su propio **_script_** para elaborar un reporte usando la barra de herramientas de **Rstudio**. Seleccione **File > New file > R Markdown** y utilice el siguiente ejemplo para completar la información de **metadatos**: Título, nombre del autor y formato, seleccione html.
+
+Luego guarde inmediatamente su script como **script_Tablas_Rmarkdwon_nombre_apellido.Rmd**.  
+
+## **Ejercicio 2.** **Trabajando con la plantilla de Rmarkdown** 
+
+Tómese un tiempo en reconocer la estructura del archivo que se ha creado. Identifique donde está el metadata de **YAML** y que tipo de reporte genera el script. Identifique el texto de bajo nivel y los bloques de código de la plantilla que Rstudio.
+
+## **Ejercicio 3.** **Configuración del reporte**
+
+En el primer bloque de códigos o **chunk** asegúrese de que los comandos están configurados de la siguiente manera *knitr::opts_chunk$set(echo = TRUE)*. Luego a modo de prueba cargue los paquetes **tidyverse**, **kableExtra**, **pander**, **DT** y **fishdata** usando la función library().
+
+```{r setup, include=TRUE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(kableExtra)
+library(pander)
+library(DT)
+library(fishdata)
+
+```
+
+## **Ejercicio 4.** **Borrar información de la plantilla**
+
+Borre los siguientes bloques de códigos R y el texto que se generó automáticamente con la plantilla y reemplacelos por nuevos bloques de códigos con el botón verde **+C** que se encuentra en la parte superior del panel de códigos. 
+
+Ejecute cada uno de los siguientes ejercicios en uno o más bloques de códigos diferentes o en el texto de bajo nivel según sea el caso. Sea ordenado y documente su reporte adecuadamente.
+
+## **Ejercicio 5.** Tablas con **kbl**
+
+Usando el set de datos BOD incluya ahora la misma tabla anterior pero esta vez usando este comando **kbl()**. Use el argumento *caption ="Demanda bioquímica de oxígeno"* para agregar la leyenda de la tabla. 
+
+```{r, echo=TRUE, message=FALSE, error=FALSE, warning=FALSE}
+kbl(BOD, caption = "Demanda bioquímica de oxígeno.")
+
+```
+
+## **Ejercicio 6.** Tablas con **pander**
+
+Usando el set de datos BOD incluya ahora la misma tabla anterior pero esta vez usando este comando **pander()**. Use el argumento *caption ="Demanda bioquímica de oxígeno"* para agregar la leyenda de la tabla. Compare con el resultado anterior.
+
+```{r, echo=TRUE, message=FALSE, error=FALSE, warning=FALSE}
+pander(BOD, caption = "Demanda bioquímica de oxígeno.")
+```
+
+## **Ejercicio 7.** Tablas con **DT::datatable**
+
+Usando el set de datos **juveniles** realice una tabla usando este comando **DT::datatable()**. Use el argumento *caption ="Tabla de sitios de muestreo de peces juveniles y fechas"* para agregar la leyenda de la tabla. ¿Qué sucede con este set de datos?. 
+
+```{r, echo=TRUE,message=FALSE, error=FALSE, warning=FALSE}
+
+DT::datatable(juveniles, caption = "Tabla de sitios de muestreo de peces juveniles y fechas.")
+```
+
+### **Ejercicio 8.** **Imprimir reporte dinámico**
+
+Finalmente, imprima su reporte en formato (html) con el botón **Knit**.

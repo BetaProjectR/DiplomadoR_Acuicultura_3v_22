@@ -1,0 +1,40 @@
+---
+title: "Tablas con Rmarkdown"
+author: "Su Nombre"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+install.packages("tidyverse")
+install.packages("kableExtra")
+install.packages("pander")
+install.packages("DT")
+install.packages("fishdata")
+library(tidyverse)
+library(kableExtra)
+library(pander)
+library(DT)
+library(fishdata)
+```
+
+```{r}
+kbl(BOD, caption = "Demanda bioquímica de oxígeno.")
+
+```
+
+```{r}
+pander(BOD, caption = "Demanda bioquímica de oxígeno.")
+
+```
+
+```{r}
+DT::datatable(juveniles, caption = "Tabla de sitios y fechas de muestreo de peces juveniles.")
+
+```
+
+
+

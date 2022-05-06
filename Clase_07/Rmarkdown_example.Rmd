@@ -1,0 +1,33 @@
+---
+title: "Rmarkdown_example"
+author: "Su nombre"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(datasets) # En este bloque de código podrían ir todos los paquetes que necesite
+library(ggplot2)
+```
+
+## Markdown (Solo texto)
+
+Si va a escribir texto debe hacerlo en el área blanca.
+
+## Código R solo va dentro de Chunk (Bloque de código)
+
+Todo código **R** debe ir dentro de un Chunk, a modo de ilustración el bloque de código se llamará resumen BOD, por ejemplo:
+
+```{r, resumen BOD}
+summary(BOD)
+```
+
+## Incluya Gráficos
+
+Para hacer gráficos deben ir dentro de bloque de código, a modo de ilustración dicho chunk se llamará grafico BOD, por ejemplo:
+
+```{r, grafico BOD}
+plot(BOD$Time,BOD$demand)
+```
