@@ -34,7 +34,7 @@ library(broom)
 
 - Realizar pruebas de hipótesis: Anova y posteriores.
 - Realizar gráficas avanzadas con ggplot2. 
-- Elaborar un reporte dinámico en formato html.  
+- Elaborar reporte dinámico en formato html.  
 
 # ANOVA
 
@@ -166,7 +166,7 @@ knitr::include_graphics("anova_lm1.png")
 
 # COMPARACIONES MULTIPLES
 
-```{r , echo=TRUE, out.width = '90%' }
+```{r , echo=TRUE}
 fit_anova <- aov(res.aov)
 tk <- TukeyHSD(fit_anova)
 ```
@@ -192,7 +192,7 @@ my_data1%>%
   ggplot(aes(x=Temperatura,y=Peso,fill=Salinidad))+
       geom_boxplot()+
      labs(x="Temperatura",y="Peso (g)")+
-  scale_x_discrete(labels = c('25ºC','30ºC','35ºC'))+My_Theme
+  scale_x_discrete(labels = c('25ºC','30ºC','35ºC'))
 
 ```
 
