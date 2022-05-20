@@ -21,7 +21,7 @@ library(dplyr)
 library(knitr)
 ```
 
-## PLAN DE LA CLASE
+# PLAN DE LA CLASE
 **1.- Introducción**
     
 - Supuestos de los análisis paramétricos.   
@@ -34,7 +34,7 @@ library(knitr)
 - Evaluar supuestos de las pruebas paramétricas.
 - Elaborar un reporte dinámico en formato html.  
 
-## SUPUESTOS: INDEPENDENCIA
+# SUPUESTOS: INDEPENDENCIA
 
 **Independencia**  
 Cada observación de la muestra no debe estar relacionada con otra observación de la muestra.
@@ -42,11 +42,12 @@ Cada observación de la muestra no debe estar relacionada con otra observación 
 *Si se viola este supuesto la prueba paramétrica* **_NO_** *es válida.*
 
 **Ejemplo violación del supuesto**  
-- Muestreo de peces de una misma familia.   
-- Diversidad de especies en una misma muestra de plancton.  
-- Medidas repetidas en un mismo individuo (antes y después de un tratamiento).  
+- Medidas repetidas en un mismo individuo (antes y después de un tratamiento).   
+- Observaciones están correlacionadas en el tiempo.  
+- Observaciones están correlacionadas en el espacio.
 
-## SUPUESTOS: HOMOGENEIDAD DE VARIANZAS
+
+# SUPUESTOS: HOMOGENEIDAD DE VARIANZAS
 
 **Homocedasticidad**  
 En el caso de comparación de dos o más muestras éstas deben provenir de poblaciones con la misma varianza.
@@ -56,7 +57,7 @@ knitr::include_graphics("anova.png")
 
 *Alguna heterogeneidad es permitida, particularmente con* **_n > 30_**.
 
-## SUPUESTOS: NORMALIDAD
+# SUPUESTOS: NORMALIDAD
 
 **Normalidad**  
 Los datos de muestreo se obtienen de una población que tiene distribución normal.   
@@ -70,7 +71,7 @@ par(xpd=F)
 mtext(side=3,line=.3,'X ~ Normal(0,1)',cex=.9,font=2)
 ```
 
-## VIOLACIÓN DEL SUPUESTO DE NORMALIDAD
+# VIOLACIÓN DEL SUPUESTO DE NORMALIDAD
 
 **¿Cuál es el problema?**  
 Cambia la probabilidad de rechazar la hipótesis nula.
@@ -82,7 +83,7 @@ knitr::include_graphics("no_normal.png")
 *En la práctica apróximadamente normal es suficiente, particularmente con* **_n > 30_**.
 
 
-## MÉTODOS PARA EVALUACIÓN DE SUPUESTOS
+# MÉTODOS PARA EVALUACIÓN DE SUPUESTOS
 
 **MÉTODO DE LOS RESIDUALES (GRÁFICOS)**  
 Residuo = valor observado - valor predicho  
@@ -93,7 +94,7 @@ $$\sum_{i=1}^{n} (y - \hat{y})^2$$
 *Note que la suma de residuos representa la variabilidad no explicada por el modelo.*
 
 
-## MÉTODOS PARA EVALUACIÓN DE SUPUESTOS 2
+# MÉTODOS PARA EVALUACIÓN DE SUPUESTOS 2
 
 **MÉTODO MEDIANTE PRUEBAS ESTADÍSTICAS**  
 - INDEPENDENCIA: DURBIN-WATSON  
@@ -108,7 +109,7 @@ $$\sum_{i=1}^{n} (y - \hat{y})^2$$
 3.- Finalmente normalidad..\
 &nbsp;      
 
-## ESTUDIO DE CASO 
+# ESTUDIO DE CASO 
 
 ```{r, fig.height=6 }
 my_data <- ToothGrowth
@@ -119,21 +120,21 @@ my_data$Tratamiento <- factor(my_data$Tratamiento,
 boxplot(Peso ~ Tratamiento, data = my_data)
 ```
 
-## ANOVA EN LA FORMA DE MODELO LINEAL
+# ANOVA EN LA FORMA DE MODELO LINEAL
 
 ```{r, echo=TRUE}
 lm.aov <- lm(Peso ~ Tratamiento, data = my_data)
 anova(lm.aov) %>% kable(digits = 3)
 ```
 
-## INDEPENDENCIA: ANÁLISIS DE RESIDUALES
+# INDEPENDENCIA: ANÁLISIS DE RESIDUALES
 
 ```{r, echo=TRUE}
 plot(lm.aov$residuals, pch=20, col = "blue",
      cex.lab=1.25, cex.axis=1.25)
 ```
 
-## INDEPENDENCIA: PRUEBA DE DURBIN-WATSON
+# INDEPENDENCIA: PRUEBA DE DURBIN-WATSON
 
 **Hipótesis**  
 **H~0~**: Son independientes o no existe autocorrelación.   
@@ -146,7 +147,7 @@ dwtest(Peso ~ Tratamiento, data = my_data,
 
 ```
 
-## HOMOGENEIDAD DE VARIANZAS: ANÁLISIS DE RESIDUALES
+# HOMOGENEIDAD DE VARIANZAS: ANÁLISIS DE RESIDUALES
 
 ```{r, echo=TRUE,out.width = '85%', fig.align='center'}
 plot(lm.aov, 1, pch=20, col = "blue",
@@ -154,7 +155,7 @@ plot(lm.aov, 1, pch=20, col = "blue",
 ```
 
 
-## HOMOGENEIDAD DE VARIANZAS: PRUEBA DE LEVENE
+# HOMOGENEIDAD DE VARIANZAS: PRUEBA DE LEVENE
 
 **H~0~**:  $\sigma^2_1$ = $\sigma^2_2$  
 **H~A~**: $\sigma^2_1$ $\neq$ $\sigma^2_2$  
@@ -165,13 +166,13 @@ lv <- leveneTest(Peso ~ Tratamiento, data = my_data,
 lv %>% kable(digits = 3)
 ```
 
-## NORMALIDAD: ANÁLISIS DE RESIDUALES
+# NORMALIDAD: ANÁLISIS DE RESIDUALES
 
 ```{r, echo=TRUE}
 plot(lm.aov, 2, pch=20, col = "blue")
 ```
 
-## NORMALIDAD: ANÁLISIS DE RESIDUALES 2
+# NORMALIDAD: ANÁLISIS DE RESIDUALES 2
 
 
 ```{r, echo=TRUE, out.width = '85%'}
@@ -181,7 +182,7 @@ qqPlot(lm.aov) # library(car)
 
 
 
-## NORMALIDAD: PRUEBA DE SHAPIRO-WILKS
+# NORMALIDAD: PRUEBA DE SHAPIRO-WILKS
 
 **H~0~**: La distribución es normal.     
 **H~A~**: La distribución no es normal.    
@@ -192,12 +193,12 @@ shapiro.test(x= aov_residuals)
 
 ```
 
-## PRÁCTICA ANÁLISIS DE DATOS
+# PRÁCTICA ANÁLISIS DE DATOS
 
 - El trabajo práctico se realiza en Rstudio.cloud.  
 **Clase 12 - Evaluación de supuestos**
 
-## RESUMEN DE LA CLASE
+# RESUMEN DE LA CLASE
 
 - **Teoría**
 - Supuestos de los análisis paramétricos.   
