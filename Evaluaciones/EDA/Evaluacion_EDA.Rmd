@@ -1,0 +1,116 @@
+---
+title: 'Evaluación EDA'
+author: Dr. José Gallardo Matus y Dra. María Angélica Rueda
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: pdf_document
+subtitle: 'Diplomado en Análisis de datos con R para la acuicultura |  Pontificia Universidad Católica de Valparaíso'
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(pander)
+library(dplyr)
+library(readxl)
+library(tidyr)
+
+```
+
+## PUNTAJE TOTAL Y NOTA
+
+```{r}
+rm(list=ls()) 
+###########################################
+#LLENAR LOS PARAMETROS DE CALCULO DE NOTA #
+###########################################
+exi=0.6             
+pje_max=32
+exi_tot=exi*pje_max
+##########################################
+
+# Importa excel
+prueba <- read_excel("EVALUACION_EDA.xlsx")
+preguntas<-gather(data = prueba, key = "Pregunta", value = "Puntaje", 4:11)
+# View (preguntas)
+# Elimina mail del alumno
+preguntas <- preguntas[-2:-3]
+# View(preguntas)
+
+```
+
+
+```{r}
+#Sumatoria de puntaje por alumno
+prueba$puntaje <- rowSums(prueba[-1:-3], na.rm = TRUE)
+
+# Calculo de nota
+prueba$nota <- round(ifelse(prueba$puntaje>=exi_tot, 
+                    3*(prueba$puntaje-exi_tot)/(pje_max*(1-exi))+4,
+                    3*(prueba$puntaje/exi_tot)+1),1)
+
+#Selecciona Alumno Nota y puntaje
+Notas=(prueba[,-2:-11])
+colnames(Notas)[3] <- "Nota"
+colnames(Notas)[2] <- "Puntaje obtenido"
+
+# Ordena notas por nombre
+Notas<-Notas[order(Notas$Nombre), ]
+
+# Imprime notas de todos los alumnos
+Notas %>% knitr::kable(caption = "Puntaje obtenido y nota de evaluación intermedia.")
+
+# Imprime nota de un alumno en particular
+#Hace el link con el loop del script de renderizacion
+Notas2 <- subset(Notas, Nombre == nom)
+
+Notas2 %>% knitr::kable(caption = "Puntaje obtenido y nota. ")
+```
+
+## PARÁMETROS PARA REALIZAR CÁLCULO DE LA NOTA
+
+```{r}
+ 
+# Con esta tabla debería poder automatizar posteriormente el calculo de la nota
+Item<- c("Nota máxima","Nota mínima","Nota aprobación","Exigencia para aprobar", "Puntaje máximo")
+Valor<-c("7,0","1,0","4,0","60 %","32")
+
+Parametros<-data.frame(Item, Valor)
+
+Parametros %>% knitr::kable(caption = "Parámetros para el cálculo de la nota.")
+  
+```
+
+
+```{r}
+
+# Esta tabla es informativa para todos los alumnos.
+Nivel<- c("Excelente","Muy bueno","Bueno","Suficiente", "Insuficiente")
+Puntaje<-c("4","3","2","1","0")
+
+Parametros<-data.frame(Nivel, Puntaje)
+
+Parametros %>% knitr::kable(caption = "Puntaje según nivel de logro alcanzado en cada pregunta o ejercicio.")
+  
+```
+
+\newpage
+
+## DETALLE DE PUNTAJE OBTENIDO POR PREGUNTA 
+
+```{r}
+
+# Genera lista de alumnos
+# Imprime el puntaje obtenido por cada alumno, ejemplo el 17. 
+
+alum <- subset(preguntas, Nombre == nom)
+alum <-  alum[, 2:3]
+alum %>% knitr::kable(caption = "Puntaje obtenido por pregunta.")
+
+# Imprime evaluación cualitativa
+
+retro<- subset(prueba, Nombre == nom)
+retro <-  retro[, 3]
+retro %>% knitr::kable(caption = "Evaluación cualitativa y retroalimentación EDA.")
+```
+
+
