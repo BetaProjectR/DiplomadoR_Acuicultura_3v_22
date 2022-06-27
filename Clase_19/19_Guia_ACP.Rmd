@@ -1,0 +1,208 @@
+---
+title: "Guía Análisis de Componentes Principales"
+subtitle: 'Métodos de análisis no paramétricos'
+author:
+ name: Dr. José A. Gallardo.
+ affiliation: Profesor adjunto de la Pontificia Universidad Católica de Valparaíso
+ email: <jose.gallardo@pucv.cl>
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+  word_document: default
+  pdf_document: default
+---
+
+#### Objetivos de aprendizaje
+
+Elaborar análisis de componentes principales con el
+ **software R**.
+  
+#### Conceptos importantes
+
+**Análisis de componentes principales**  
+Los análisis de componentes principales (en español ACP, en inglés, PCA) son una técnica utilizada para describir un conjunto de datos en términos de nuevas variables («componentes») no correlacionadas. Los componentes se ordenan por la cantidad de varianza original que describen, por lo que la técnica es útil para reducir la dimensionalidad de un conjunto de datos [Wiki.](https://es.wikipedia.org/wiki/An%C3%A1lisis_de_componentes_principales).
+
+**Análisis de componentes principales**  
+Es una herramienta utilizada para realizar análisis exploratorio de datos multivariantes y para construir modelos predictivos.
+
+Permite reducir la dimensionalidad y encontrar patrones en un set de datos mediante el calculo de los “componentes principales”.
+
+Los componentes principales se ordenan por la cantidad de varianza original que describen [Wiki.](https://es.wikipedia.org/wiki/An%C3%A1lisis_de_componentes_principales).
+
+#### Software.
+
+Esta es la versión de R que se usó para crear esta guía.
+```{r, echo=TRUE}
+R.version.string
+```
+
+#### Librerías.
+  
+**{stats}**  
+This package contains functions for statistical calculations and random number generation.
+
+**{readxl}**  
+Read Excel Files.
+  
+**{dplyr}**  
+Librería para manipular datos.
+
+**{psych}**  
+Procedures for Psychological, Psychometric, and Personality
+Research
+
+**{factoextra}**  
+Extract and Visualize the Results of Multivariate Data Analyses.
+
+**{MVN}**  
+Multivariate Normality Tests
+
+#### Comandos para realizar los análisis.
+
+**read_excel()**  
+Importa datos a R desde archivos excel.
+
+
+#### EJERCICIOS
+
+Realice los ejercicios de forma colaborativa con uno o dos compañeros.
+
+Elabore un archivo Rmarkdown o file con extensión **.Rmd** en Rstudio o Rstudio.cloud y configurelo para exportar el resultado como un documento dinámico **pdf**. 
+
+En el primer bloque de códigos o **chunk** configure los comandos de la siguiente manera *knitr::opts_chunk$set(echo = TRUE)* y habilite las librerías **stats**, **readxl**, **dplyr**, **ggplot2**, **psych**, **factoextra** y **MVN** usando la función library().
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(stats)
+library(readxl)
+library(dplyr)
+library(psych)
+library(factoextra)
+library(ggplot2)
+library(MVN)
+```
+
+A partir del set de datos **bioenv.xlsx** disponibles en el libro  MULTIVARIATE ANALYSIS OF ECOLOGICAL DATA de los autores [Michael Greenacre and Raul Primicerio](https://www.fbbva.es/microsite/multivariate-statistics/) realice los siguientes ejercicios
+
+**Ejercicio 1.** Importar y explorar
+
+a) Importe la hoja 1 set de datos **bioenv.xlsx** usando la función *read_excel()* de la librería *readxl*. No olvide usar el argumento *Sheet=1*. Explore el set de datos usando las funciones *summary()*. Compruebe que todas las variables numéricas están expresadas como número y que las variables Sitio y Sediment sean factores. Caso contrario realice los cambios correspondientes con las funciones **as.numeric()** y **as.factor()**.
+
+```{r}
+bioenv <- read_excel("bioenv.xlsx", sheet = 1)
+summary(bioenv)
+bioenv$Sitio <- as.factor(bioenv$Sitio)
+bioenv$Sediment <- as.factor(bioenv$Sediment)
+str(bioenv)
+```
+
+b) Elabore una gráfica de correlaciones de las variables Depth, Pollution y Temperature usando la función **pairs.panels()**.
+
+```{r}
+pairs.panels(bioenv[7:9])
+```
+
+
+**Ejercicio 2.** Matriz distancia euclideana
+
+a) Para las tres variables cuantitativas continuas Depth, Pollution y Temperature elabore 3 variables derivadas D1, P1 y T1 con su *valor estandarizado* como la diferencia de cada valor por la media **mean()** y dividiendo por la desviasión estandar **sd()**. Use la función **mutate()** de la librería **dplyr**
+
+```{r}
+# Crea nuevas variables
+val_estandarizado <- bioenv %>%
+ select(Sitio, Depth, Pollution, Temperature) %>%
+ mutate(
+  D1 = (Depth - mean(Depth)) / sd(Depth),
+  P1 = (Pollution - mean(Pollution)) / sd(Pollution),
+  T1 = (Temperature - mean(Temperature)) / sd(Temperature))
+```
+
+b) Elabore una gráfica de correlaciones de las variables estandarizadas  usando la función **pairs.panels()** y compare con las correlaciones estimadas en el ejercicio **1b** que calcula la correlación con la variable original.
+
+```{r}
+pairs.panels(val_estandarizado[5:7])
+```
+c) Calcule la matriz de distancia euclideana estandarizada a partir de los datos D1, P1 y T1. Use la función **dist()**.
+
+```{r}
+dist_euclidea <- dist(val_estandarizado[5:7])
+class(dist_euclidea)
+# extracto de matriz de distancia
+dist_euclidea <- as.matrix(dist_euclidea)
+class(dist_euclidea)
+dist_euclidea[c(1:4),c(1:4)]
+
+```
+
+
+A partir del set de datos **data_PCA.xlsx** parcialmente obtenidos desde el paper de [Rivera y colaboradores, 2019](https://www.sciencedirect.com/science/article/abs/pii/S0025326X19305004?via%3Dihub) que analiza la calidad de agua y la concentración de metales pesados del Humedal el Yali en Chile central realice los siguientes ejercicios.
+
+**Ejercicio 1.** Importar y explorar
+
+a) Importe la hoja 1 set de datos **data_PCA.xlsx** usando la función *read_excel()* de la librería *readxl*. No olvide usar el argumento *Sheet=1*. Explore el set de datos usando las funciones *summary()*. Compruebe que todas las variables,ssin contar Sitio, están expresadas como número. Caso contrario realice los cambios correspondientes con las funciones **as.numeric()**.
+
+```{r}
+Yali <- read_excel("data_PCA.xlsx", sheet = 1)
+summary(Yali)
+Yali$PH <- as.numeric(Yali$PH)
+str(Yali)
+```
+
+b) Elabore gráficas de correlaciones paramétricas de pearson de todas las variables numéricas en grupos de 6 o 7 usando la función **pairs.panels()**.
+
+```{r}
+pairs.panels(Yali[2:7], method = "pearson")
+pairs.panels(Yali[8:13], method = "pearson")
+pairs.panels(Yali[14:20], method = "pearson")
+```
+**Ejercicio 2.** Pruebas de normalidad
+
+a) Elabore un nuevo set de datos llamado **Yali_new** solo con las variables numéricas, utilice la columna Sitio para agregar el nombre de las filas con la función **row.names()**.
+
+```{r}
+Yali_new <- as.data.frame(Yali[,2:20])
+row.names(Yali_new) <- Yali$Sitio
+head(Yali_new)
+```
+
+b) Realice pruebas de normalidad usando la función **mvn()** de la librería MVN, use el argumento **tol=1.51413e-60**, si al ejecutar la función obtiene un error de matriz singular. 
+```{r}
+ mvn(Yali_new, univariateTest="SW", tol=1.51413e-60)
+```
+
+**Ejercicio 3.** Análisis de Componentes Principales
+
+a) Realice un análisis de componentes principales para el nuevo set de datos **Yali_new** con la función **prcomp**, use los argumento *scale = TRUE* para estandarizar las variables de forma automática. Almacene el ACP en un nuevo objeto denominado **Yalipca**.
+
+```{r}
+
+Yalipca <- prcomp(Yali_new, scale = TRUE)
+Yalipca
+```
+
+c) Usando el objeto **Yalipca**, obtenga la varianza explicada por cada CP con la función **get_eigenvalue()** y grafique con la función **fviz_eig()**.
+
+```{r}
+get_eigenvalue(Yalipca)
+fviz_eig(Yalipca)
+
+```
+
+d) Elabore gráficas para representar la distribución de los sitios **fviz_pca_ind()**, de las variables **fviz_pca_var()** y gráficas Biplot de individuos y variables **fviz_pca_biplot()**
+
+```{r}
+fviz_pca_ind(Yalipca, repel = TRUE) # evita que se solape el nombre de los sitios
+
+```
+
+
+```{r}
+fviz_pca_var(Yalipca)
+```
+
+
+```{r}
+fviz_pca_biplot(Yalipca, repel = TRUE)
+```
+
