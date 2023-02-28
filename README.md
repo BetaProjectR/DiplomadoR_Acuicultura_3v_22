@@ -1,5 +1,7 @@
 # Diplomado Análisis de Datos con R para Acuicultura
 
+Fecha de realización: 01 abril - 02 julio de 2022.
+
 **DIRIGIDO A:**
 
 Profesionales o graduados relacionados con la industria de la acuicultura.
